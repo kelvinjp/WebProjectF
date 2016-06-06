@@ -1,0 +1,39 @@
+<div>
+  <div style="padding: 1px; float: left; width: 49%; text-align: justify;">
+
+    <md-toolbar class="md-warn">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">Request</h2>
+      </div>
+    </md-toolbar>
+
+    <md-input-container flex>
+      <label>XML</label>
+
+      <textarea ng-model="xml" ng-change="cambio()" columns="1" md-maxlength="10000" style="height: 100px; max-height: 100px;" ></textarea>
+
+    </md-input-container>
+
+    <section layout="row" layout-sm="column" layout-align="center center">
+      <md-button class="md-raised md-primary" ng-click="callBroker()">Enviar</md-button>
+      <!-- <md-button flex ng-disabled="!userForm.$error" class="md-raised md-primary">cancelar</md-button>-->
+    </section>
+
+
+  </div>
+  <div style="padding: 1px; float: right; width: 49%; text-align: justify;">
+    <md-toolbar class="md-warn">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">Response</h2>
+      </div>
+    </md-toolbar>
+    <md-input-container flex>
+      <label>XML</label>
+    <textarea ng-model="response" columns="1" md-maxlength="10000">
+      {{response}}
+    </textarea>
+    </md-input-container>
+
+  </div>
+
+</div>

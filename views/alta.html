@@ -1,0 +1,58 @@
+<div ng-controller="AltaCtrl">
+  <div layout="column" layout-fill style="padding-bottom: 20px;">
+    <md-toolbar class="md-primary">
+    <h1 class="md-toolbar-tools">
+      DARSE DE DALTA
+    </h1>
+    </md-toolbar>
+    </md-toolbar>
+
+    <md-whiteframe class="md-whiteframe-z5" layout layout-align="center center" >
+    <md-content layout-padding>
+      <form name="userForm" >
+        <div layout layout-sm="column">
+
+          <md-input-container flex>
+            <label>Email</label>
+            <input required type="email" ng-model="clienteEmail" >
+            <div ng-messages="false">
+              <div ng-show="emailExiste" ng-message="requiered">Este Email ya existe.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Nombres</label>
+            <input ng-model="clienteNombre">
+          </md-input-container>
+
+
+        </div>
+        <div layout layout-sm="column">
+
+          <md-input-container flex>
+            <label>Contraseña</label>
+            <input  required type="password"  ng-model="clientePassoword" >
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Confimar Contraseña</label>
+            <input  required type="password"
+                    ng-model="clientePassoword2">
+            <div ng-messages="false">
+              <div ng-show="validatePass()"
+                   ng-message="requiered">Contraseña no coinciden</div>
+            </div>
+          </md-input-container>
+
+        </div>
+      </form>
+      <section layout="row" layout-sm="column" layout-align="center center">
+        <md-button class="md-raised md-primary" ng-click="altaClietne()">Darte de Alta</md-button>
+        <!-- <md-button flex ng-disabled="!userForm.$error" class="md-raised md-primary">cancelar</md-button>-->
+      </section>
+    </md-content>
+    </md-whiteframe>
+    <md-progress-linear md-mode="indeterminate" ng-show="pbar"></md-progress-linear>
+</div>
+  </div>
+

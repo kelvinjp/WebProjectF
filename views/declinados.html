@@ -1,0 +1,101 @@
+<div ng-controller="declinadosCtrl">
+   <div class="panel panel-primary">
+      <div class="panel-heading">
+         <h3 class="panel-title">Usuarios Pendientes</h3>
+      </div>
+     <div class="input-group">
+       <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+       <input type="text" class="form-control" placeholder="Buscar Usuario" ng-model="buscar">
+     </div>
+      <table class="table table-hover">
+         <tr style="font-weight: bold">
+            <th>
+               <a href="" ng-click="ordenarPor('nombre')">
+               Id Usuario
+               </a>
+            </th>
+            <th >Username</th>
+            <th>Nombres</th>
+            <th >Apellidos</th>
+            <th >Email</th>
+            <th>Indentificacion</th>
+            <th >Telefono</th>
+            <th >Opciones</th>
+         </tr>
+         <tr dir-paginate="usuario in usuarios | filter:buscar | itemsPerPage: pageSize" current-page="currentPage">
+            <td>
+               {{ usuario.idusuario || 'empty' }}
+            </td>
+            <td>
+               {{ usuario.username || 'empty' }}
+            </td>
+            <td>
+               {{  usuario.nombres }}
+            </td>
+            <td>
+               {{  usuario.apellidos || 'empty' }}
+            </td>
+            <td>
+               {{  usuario.email || 'empty' }}
+            </td>
+            <td>
+               {{  usuario.identificacion || 'empty' }}
+            </td>
+            <td>
+               {{  usuario.telefono || 'empty' }}
+            </td>
+            <td  style="white-space: nowrap">
+               <!-- form -->
+              <button class="btn btn-primary"  ng-click="aceptarUsuario(usuario)"  data-toggle="modal" data-target="#myModal"><i class="fa fa-check"></i> Aceptar</button>
+            </td>
+            <!--<td  style="white-space: nowrap">
+               <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Modal</button>
+               </button>
+               </td> -->
+         </tr>
+      </table>
+      <div>
+        <div>
+            <div>
+                <div ng-controller="OtherController" class="other-controller">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <h4 class="modal-title" id="myModalLabel">Agregar membresia a {{alt.username}}. </h4>
+         </div>
+         <div class="modal-body">
+
+            <div>
+               <form style="width: 233px">
+               <label>Membresia:</label>
+               <select class="form-control" ng-init="selectedEstado = estados[0]" ng-model="selectedEstado" ng-options="estado.nombre for estado in estados"></select>
+               </form>
+            </div>
+         </div>
+         <div class=" text-center">
+               <button  class="btn btn-lg btn-primary" ng-click="guardarCambios()" >Guardar</button>
+            </div>
+
+         <div ng-show="guardado" class="alert alert-success" role="alert">Membresia agregada Correctamente</div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+         </div>
+      </div>
+   </div>
+</div>
+</div>

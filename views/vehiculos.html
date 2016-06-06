@@ -1,0 +1,63 @@
+<div ng-controller="VehiculosCtrl">
+
+  <div class="panel panel-primary">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Vehiculos</h3>
+    </div>
+
+    <p></p>
+    <table class="table table-hover">
+      <tr style="font-weight: bold">
+        <th>
+          <a href="" ng-click="ordenarPor('nombre')">
+            Marca
+          </a>
+        </th>
+        <th >Modelo</th>
+        <th >Año</th>
+        <th>Placa</th>
+        <th >Chasis</th>
+      </tr>
+
+      <tr ng-repeat="vehiculo in vehiculos | orderBy:ordenSeleccionado | filter:buscar">
+        <td>
+          {{ vehiculo.marca || 'empty' }}
+
+        </td>
+        <td>
+          {{ vehiculo.modelo || 'empty' }}
+
+        </td>
+        <td>
+          {{ vehiculo.fecha }}
+
+        </td>
+        <td>
+          {{ vehiculo.placa || 'empty' }}
+
+        </td>
+
+
+        <td>
+          {{ vehiculo.chasis || 'empty' }}
+
+        </td>
+
+
+        <td  style="white-space: nowrap">
+          <!-- form -->
+          <button class="btn btn-primary"  ng-click="eliminarVehiculo(vehiculo)">
+            Eliminar
+          </button>
+        </td>
+        <!--<td  style="white-space: nowrap">
+
+          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Modal</button>
+        </button>
+      </td> -->
+      </tr>
+
+    </table>
+  </div>
+</div>

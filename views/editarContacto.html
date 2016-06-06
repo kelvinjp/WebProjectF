@@ -1,0 +1,138 @@
+<div ng-controller="AlertasCtrl">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Alertas</h3>
+    </div>
+    <p></p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+      <input type="text" class="form-control" placeholder="Buscar Alerta" ng-model="buscar.username">
+
+    </div>
+
+    <table class="table table-hover table-responsive">
+      <tr style="font-weight: bold">
+        <th>
+          <a href="" ng-click="ordenarPor('nombre')">
+            Id Alerta
+          </a>
+        </th>
+        <th >Fecha</th>
+        <th >Tipo de alerta</th>
+        <th>Usuario</th>
+        <th class="hidden-xs">Latitud</th>
+        <th class="hidden-xs" >Longitud</th>
+        <th>Estado</th>
+        <th class="hidden-xs" >Actualizada</th>
+        <th >Opciones</th>
+      </tr>
+      <tr dir-paginate="alerta in alertas | orderBy:'-idalerta' | filter:buscar | itemsPerPage: pageSize" current-page="currentPage" >
+
+
+      <td>
+        {{ alerta.idalerta || 'empty' }}
+      </td>
+      <td>
+        {{ fDate(alerta.fecha) || 'empty' }}
+      </td>
+      <td>
+        {{ showTipos(alerta) }}
+      </td>
+      <td>
+        {{ alerta.username || 'empty' }}
+      </td>
+      <td class="hidden-xs">
+        {{ alerta.latitud || 'empty' }}
+      </td>
+      <td class="hidden-xs">
+        {{ alerta.longitud || 'empty' }}
+      </td>
+      <td class="hidden-xs">
+        <div ng-if="alerta.estado == 0">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        </div>
+        <div ng-if="alerta.estado == 1">
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+      </div>
+        <div ng-if="alerta.estado == 2">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </div>
+      </td>
+      <td class="hidden-xs">
+        {{ fDate(alerta.actualizada) || 'empty' }}
+      </td>
+
+      <td  style="white-space: nowrap">
+        <!-- form -->
+        <button class="btn btn-primary"  ng-click="actualizar(alerta)"><i class="fa fa-location-arrow"></i></button>
+        <button class="btn btn-primary"  ng-click="editarAlerta(alerta)"  data-toggle="modal" data-target="#myModal"><i class="fa fa-cog"></i></button>
+      </td>
+      <!--<td  style="white-space: nowrap">
+         <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Modal</button>
+         </button>
+         </td> -->
+      </tr>
+    </table>
+    <div>
+      <div>
+        <div>
+          <div ng-controller="OtherController" class="other-controller">
+            <div class="text-center">
+              <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div   class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Mapa</h3>
+    </div>
+    <div id="map_canvas">
+      <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+        <ui-gmap-marker  ng-show="showMap" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        </ui-gmap-marker>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+          <h4 class="modal-title" id="myModalLabel">Editar Alerta No: {{alt.idalerta}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Comentario:</label>
+            <textarea type="text" ng-model="alt.comentario" class="form-control"> </textarea>
+          </div>
+          <div>
+            <label>Estado:</label>
+            <select class="form-control" ng-init="selectedEstado = estados[0]" ng-model="selectedEstado" ng-options="estado.nombre for estado in estados"></select>
+          </div>
+        </div>
+        <div class=" text-center">
+          <button class="btn btn-lg btn-primary" ng-click="guardarCambios()" >Guardar Cambios</button>
+        </div>
+
+        <div ng-show="guardado" class="alert alert-success" role="alert">Modificado Correctamente</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

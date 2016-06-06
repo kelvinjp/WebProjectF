@@ -1,0 +1,56 @@
+
+  <div class="container" style="max-width: 40%" >
+<!--
+    <form class="form-signin" role="form" ng-submit="iniciarSesion()">
+      <h2 class="form-signin-heading">Entrar</h2>
+      <input type="text" class="form-control" placeholder="Usuario" required autofocus ng-model="usuario.txtuser">
+      <input type="password" class="form-control" placeholder="Contraseña" required ng-model="usuario.txtpass">
+      <label class="checkbox">
+        <input type="checkbox" value="remember-me"> Recordar contraseña
+      </label>
+      <p class="bg-danger" style="font-weight: bold" ng-show="errormsj">Usuario/Contraseña incorrectas.</p>
+
+      <input class="btn btn-lg btn-primary btn-block" type="submit" value="Entrar">
+    </form> -->
+    <div layout="column" layout-fill style="padding-bottom: 10px;">
+      <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools" >
+          <span >LOGIN</span>
+        </h2>
+      </md-toolbar>
+      <md-whiteframe class="md-whiteframe-z5" layout layout-align="center center">
+
+        <md-content layout-padding>
+
+
+          <form name="userForm">
+
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="usuario.txtuser">
+              </md-input-container>
+
+            </div>
+            <md-input-container flex>
+              <label>Password</label>
+              <input TYPE="PASSWORD" ng-model="usuario.txtpass">
+            </md-input-container>
+
+          </form>
+          <section layout="row" layout-sm="column" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-click="iniciarSesion()">Entrar</md-button>
+            <!-- <md-button flex ng-disabled="!userForm.$error" class="md-raised md-primary">cancelar</md-button>-->
+          </section>
+        </md-content>
+
+      </md-whiteframe>
+
+    </div>
+
+  </div> <!-- /container-->
+
+
+
+
+
