@@ -1,0 +1,114 @@
+	<body class="animated fadeInDown" >
+
+		
+
+		<div id="main" role="main" >
+
+			<!-- MAIN CONTENT -->
+			
+					
+					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+						<div class="well no-padding">
+							<form  id="login-form" class="smart-form client-form">
+								<header>
+									Entrar
+								</header>
+
+								<fieldset>
+
+									<section>
+										<label class="label">E-mail</label>
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="email" name="email" ng-model="usuario.txtuser">
+											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>Digite su email</b></label>
+									</section>
+
+									<section>
+										<label class="label">Password</label>
+										<label class="input"> <i class="icon-append fa fa-lock"></i>
+											<input type="password" name="password" ng-model="usuario.txtpass">
+											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Digite su password</b> </label>
+										<div class="note">
+											<a href="forgotpassword.html">Olvido su password?</a>
+										</div>
+									</section>
+
+									
+								</fieldset>
+								<footer>
+									<button class="btn btn-primary" ng-click="iniciarSesion()">
+										Sign in
+									</button>
+								</footer>
+							</form>
+						</div>
+					</div>
+			
+
+		</div>
+
+		<!--================================================== -->
+
+		
+		<!-- IMPORTANT: APP CONFIG -->
+		<script src="js/app.config.js"></script>
+
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+
+		<!-- BOOTSTRAP JS -->
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+
+		<!-- JQUERY VALIDATE -->
+		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+		<!-- JQUERY MASKED INPUT -->
+		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+		<!--[if IE 8]>
+
+			<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+		<![endif]-->
+
+		<!-- MAIN APP JS FILE -->
+
+		<script type="text/javascript">
+			runAllForms();
+
+			$(function() {
+				// Validation
+				$("#login-form").validate({
+					// Rules for form validation
+					rules : {
+						email : {
+							required : true,
+							email : true
+						},
+						password : {
+							required : true,
+							minlength : 3,
+							maxlength : 20
+						}
+					},
+
+					// Messages for form validation
+					messages : {
+						email : {
+							required : 'Please enter your email address',
+							email : 'Please enter a VALID email address'
+						},
+						password : {
+							required : 'Please enter your password'
+						}
+					},
+
+					// Do not change code below
+					errorPlacement : function(error, element) {
+						error.insertAfter(element.parent());
+					}
+				});
+			});
+		</script>
+
+	</body>

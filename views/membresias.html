@@ -1,0 +1,54 @@
+<div ng-controller="membresiasCtrl">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title">Membresias</h3>
+    </div>
+  <table class="table table-striped table-hover table-condensed">
+
+    <tr style="font-weight: bold ">
+      <th style="width: 1% "></th>
+      <th style="width: 25% ">Nombre</th>
+      <th style="width: 30%">Dias</th>
+      <th style="width: 30%">Opciones</th>
+    </tr>
+
+    <tr ng-repeat="tarea in tareas | orderBy:ordenSeleccionado | filter:buscar">
+      <td>
+      </td>
+      <td>
+        <span editable-text="tarea.nombre" e-name="nombre" e-form="rowform"  e-required>
+              {{ tarea.nombre || 'empty' }}
+            </span>
+      </td>
+      <td>
+                <span editable-text="tarea.dias" e-name="dias" e-form="rowform"  e-required>
+                {{ tarea.dias || 'empty' }}
+            </span>
+      </td>
+
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="saveUser($data, tarea.idmebresia)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == tarea">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            Guardar
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancelar
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()"><i class="fa fa-cog"></i></button>
+          <button class="btn btn-danger" ng-click="removeUser(tarea.idmebresia)"><i class="fa fa-trash-o fa-lg"></i> </button>
+        </div>
+
+      </td>
+    </tr>
+
+  </table>
+
+  <button class="btn btn-default" ng-click="addMembresia() ">Agregar Membresia</button>
+
+  <br><br>
+
+</div>
+  </div>
+

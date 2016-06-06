@@ -1,0 +1,240 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, user-scalable-no">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/ng-mfb/mfb/dist/mfb.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="appApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-controller="navegCtrl" class="container">
+
+
+      <!--Menu Material-----------------------  -->
+      < layout="row" flex>
+
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"  >
+          <h1 class="md-toolbar-tools">Sidenav Right</h1>
+          </md-toolbar>
+          <md-content ng-controller="RightCtrl" layout-padding>
+
+
+
+
+            <md-button ng-click="close()" class="md-primary">
+              Close Sidenav Right
+            </md-button>
+          </md-content>
+        </md-sidenav>
+
+        <md-content flex layout-padding>
+          <div layout="column" layout-fill layout-align="top center">
+
+            <ul class="mfb-component--tl mfb-slidein" data-mfb-hover>
+            <nav mfb-menu  effect="zoomin" label="hover here"
+                 active-icon="ion-edit" resting-icon="ion-plus-round"
+                 toggling-method="click">
+              <p>
+                .
+              </p> <p>
+              .
+            </p>
+              <p>
+                .
+                .
+              </p>
+              <md-button class="md-fab md-primary" aria-label="Use Android" align="right" ng-click="toggleLeft()">
+               <b>+</b>
+              </md-button>
+            </nav>
+          </ul>
+            </div>
+
+
+        </md-content>
+
+
+      </section>
+
+      <!--END menu material -->
+
+
+
+
+
+
+      <div class="header">
+        <div class="navbar navbar-default navbar-fixed-top"  role="navigation">
+
+          <div class="container">
+            <div class="navbar-header ">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+
+              </button>
+              <img src="0.png" alt="Mountain View" style="width:100px;height:80px">
+
+
+            </div>
+
+
+          <div  class="collapse navbar-collapse" id="js-navbar-collapse"><ul style="list-style-type: none">
+            <li></li>
+          </ul>
+            <div class="container"><ul style="list-style-type: none">
+              <li></li>
+            </ul>
+
+              <ul class="nav nav-pills pull-right">
+
+                <li  ng-show="usrConectado.cliente"  class="dropdown">
+
+                  <a href="#vehiculos" class="dropdown-toggle">Vehiculos <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#vehiculos">Ver Vehiculos</a></li>
+                    <li><a href="#addVehiculo">Agregar Vehiculos</a></li>
+                  </ul>
+                </li>
+
+                <li >
+                  <a ng-href="#/login" ng-show="!usrConectado.estaConectado">Entrar</a>
+                </li>
+                <li >
+                  <a ng-href="#/alta" ng-show="!usrConectado.estaConectado">Registrarse</a>
+                </li>
+                <li ng-show="usrConectado.admin" role="presentation" ><a href="#alertas">Alertas </a>
+                </li>
+
+                <li class="dropdown" ng-show="usrConectado.admin">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuarios<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#pendientes">Pendientes</a>
+                    </li>
+                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#declinados">Declinados</a>
+                    </li>
+                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#registrados">Registrados</a>
+                    </li>
+                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#registrar">Nuevo</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li ng-show="usrConectado.admin" role="presentation" ><a href="#Estados">Estado</a>
+                </li>
+                <li ng-show="usrConectado.admin" role="presentation" ><a href="#membresias">Membresias</a>
+                </li>
+                <li ng-show="usrConectado.cliente" role="presentation" ><a href="#perfil">Mi Perfil </a>
+                </li>
+                <li ng-show="  usrConectado.estaConectado">
+                  <button class="btn btn-danger"ng-click="salir()"><i class="fa fa-sign-out"></i></button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+    <div ng-view="">
+
+    </div>
+    </div>
+
+
+
+
+    <div class="footer">
+      <div class="container">
+
+        <p><span class="glyphicon glyphicon-envelope"></span> </p>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-md5/angular-md5.js"></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src='bower_components/lodash/dist/lodash.compat.min.js'></script>
+    <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="bower_components/ng-mfb/src/mfb-directive.js"></script>
+    <script src="bower_components/ng-mfb/mfb/dist/mfb.js"></script>
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/crud.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
+        <script src="scripts/controllers/alertas.js"></script>
+        <script src="scripts/controllers/alta.js"></script>
+        <script src="scripts/controllers/alta2.js"></script>
+        <script src="scripts/controllers/registrado.js"></script>
+        <script src="scripts/controllers/editarusuario.js"></script>
+        <script src="scripts/controllers/vehiculos.js"></script>
+        <script src="scripts/controllers/tipoalerta.js"></script>
+        <script src="scripts/controllers/addVehiculo.js"></script>
+        <script src="scripts/controllers/OtherController.js"></script>
+        <script src="scripts/controllers/pendientes.js"></script>
+        <script src="scripts/controllers/declinados.js"></script>
+        <script src="scripts/controllers/registrados.js"></script>
+        <script src="scripts/controllers/EditRow.js"></script>
+        <script src="scripts/controllers/membresias.js"></script>
+        <script src="scripts/controllers/xml.js"></script>
+        <script src="scripts/controllers/contactos.js"></script>
+
+
+        <!-- endbuild -->
+</body>
+</html>

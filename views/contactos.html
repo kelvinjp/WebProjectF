@@ -1,0 +1,84 @@
+ <section id="widget-grid" class="">
+
+<div class="row">
+
+  <!-- NEW WIDGET START -->
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <!-- Widget ID (each widget will need unique ID)-->
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="true">
+      <!-- widget options:
+      usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+      data-widget-colorbutton="false"
+      data-widget-editbutton="false"
+      data-widget-togglebutton="false"
+      data-widget-deletebutton="false"
+      data-widget-fullscreenbutton="false"
+      data-widget-custombutton="false"
+      data-widget-collapsed="true"
+      data-widget-sortable="false"
+
+      -->
+      <header>
+        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+        <h2>Contactos </h2>
+
+      </header>
+
+      <!-- widget div-->
+      <div>
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+          <!-- This area used as dropdown edit box -->
+
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+          <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+            <tr>
+              <th data-hide="phone">ID</th>
+              <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Nombre</th>
+              <th data-hide="phone"><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i>RNC</th>
+              <th>E-Mail</th>
+              <th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i>Telefono</th>
+              <th data-hide="phone,tablet">Direccion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="contacto in contactos | orderBy:ordenSeleccionado | filter:buscar" ng-click="go(contacto)">
+              <td>{{$index + 1}}</td>
+              <td>{{contacto.nombre || 'empty' }}</td>
+              <td>{{contacto.identificacion}}</td>
+              <td>{{contacto.email}}</td>
+              <td>{{contacto.telefono}}</td>
+              <td>{{contacto.direccion}}</td>
+            </tr>
+            
+            </tbody>
+          </table>
+
+        </div>
+        <!-- end widget content -->
+
+      </div>
+      <!-- end widget div -->
+
+    </div>
+    <!-- end widget -->
+
+
+
+
+
+
+  </article>
+  <!-- WIDGET END -->
+
+</div>
+  </section>
