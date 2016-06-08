@@ -126,7 +126,7 @@
               <!-- #NAVIGATION -->
               <!-- Left panel : Navigation area -->
               <!-- Note: This width of the aside area can be adjusted through LESS variables -->
-              <aside id="left-panel">
+              <aside id="left-panel" ng-show="!usrConectado.estaConectado">
 
                 <!-- User info -->
                 <div class="login-info">
@@ -561,11 +561,11 @@
     <!-- MAIN PANEL -->
     <div id="main" role="main">
 
-            <!-- MAIN CONTENT -->
-        <div id="content">        
+			
+			
+            <!-- MAIN CONTENT -->   
 
-            <div ng-view="">
-            </div>            
+            <div ng-view="">        
 
           </div>
           <!-- END MAIN CONTENT -->

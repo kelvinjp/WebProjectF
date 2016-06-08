@@ -119,7 +119,7 @@ angular
         controller: 'VehiculosCtrl'
       }).
       when('/contactos', {
-        templateUrl: '../views/contactos.html',
+        templateUrl: 'views/contactos.html',
         controller: 'ContactosCtrl'
       })
       .otherwise({
