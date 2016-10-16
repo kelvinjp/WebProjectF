@@ -8,185 +8,82 @@
  * Controller of the appApp AlertasCtrl
  */
 angular.module('appApp')
-  .controller('editarContactoCtrl', function ($scope, $q, $filter, $http, TareasResourse, $timeout ) {
-    $scope.tipos;
-    $scope.estados;
-    $scope.alertaComentario ;
-    $scope.alertaEstado ;
-    $scope.alertaId ;
-    $scope.alt;
-    $scope.guardado = false;
-
-    $scope.currentPage = 1;
-    $scope.pageSize = 5;
-
-    $scope.pageChangeHandler = function(num) {
-      console.log('page changed to ' + num);
-    };
-
-
+  .controller('editarContactoCtrl', function($scope, $q, $filter, $http, TareasResourse, $timeout, $routeParams, $cookieStore,$location,$route) {
     /*********************************************************************
-     * AQUI OBTENEMOS LOS TIPOS DE ALERTAS
+     * Contacto
      *
      ******************************************************************* */
-    var connAlts = $q.defer();
+    var usuario = $cookieStore.get('user');
+    var idusuario = usuario.idusuario;
+    var idContacto = $routeParams.idContacto;
 
-    connAlts.promise.then(result);
-    function result(rs){
-      if(rs.nombre != 'wrong'){
-        $scope.tipos = rs;
-      }else{
-        $scope.errormsj= true;
-      }
-    };
 
-    $scope.iniciarSesion = function(){
-      var usr =   TareasResourse.getTipos.all()
-        .$promise.then(function(usr){
-          connAlts.resolve(usr);
+    var conn = $q.defer();
+    conn.promise.then(response);
+
+    function response(resultSet) {
+      console.log('Result:' + JSON.stringify(resultSet));
+      $scope.contacto = resultSet;
+    }
+    $scope.getContacto = function() {
+      var resultSet = TareasResourse.ClientegetOne.getOne({
+          idcliente: idContacto,
+          idusuario: idusuario
+        })
+        .$promise.then(function(resultSet) {
+          conn.resolve(resultSet);
         });
+    }
+  $scope.getContacto();
+  
+  
+  
+  /*** Editar Contacto***/
+    var conn2 = $q.defer();
 
-    };
-    $scope.iniciarSesion();
-
-    $scope.showTipos = function(alerta) {
-      var selected = [];
-      if(alerta!='undefine') {
-        selected = $filter('filter')($scope.tipos, {idtiposalerta: alerta.idtiposalerta});
-      }
-      return selected.length ? selected[0].nombre : alerta.idtiposalerta;
-    };
+    conn2.promise.then(actContacto);
 
 
-    /***************************************************************
-     * AQUI OBTENEMOS ESTADOS POSIBLES DE LAS ALERTAS
-     * ************************************************************/
-    var inicioEstados = $q.defer();
-
-    inicioEstados.promise.then(usrEstado);
-    //le propagamos estos valores al controlador padre para poder ocultar elmentos del menu ya que el menu tiene otro controlador
-    function usrEstado(usr){
-      if(usr.nombre != 'wrong'){
-        $scope.estados = usr;
-      }else{
-        $scope.errormsj= true;
-      }
-    };
-
-    $scope.iniciarEstado = function(){
-      //Enciptamos el passowrd
-      //var crypt = md5.createHash($scope.usuario.txtpass);
-      var usr =   TareasResourse.getEstados.all()
-        .$promise.then(function(usr){
-          inicioEstados.resolve(usr);
-        });
-
-    };
-    $scope.iniciarEstado();
-
-
-
-    $scope.showEstado = function(alerta) {
-      var selected = [];
-      if(alerta!='undefine') {
-        selected = $filter('filter')($scope.estados, {idestado: alerta.estado});
-      }
-      return selected.length ? selected[0].nombre : alerta.idtiposalerta;
-    };
-
-
-/*************************************************************************************
- *
- * Editar Alerta
- *
- * ***********************************************************************************/
-
-    $scope.editarAlerta = function(alerta) {
-     var seleccion= [];
-     seleccion = $filter('filter')($scope.estados, {idestado: alerta.estado});
-      $scope.selectedEstado = seleccion[0];
-
-      $scope.guardado = false;
-
-      $scope.alt = alerta;
-      console.log( $scope.alt);
-      $scope.alertaComentario = alerta.comentario;
-      $scope.alertaEstado = alerta.tipos;
-      $scope.alertaIdUsuario = alerta.idalerta;
-    };
-
-     var editA = $q.defer();
-
-    editA.promise.then(edAlert);
-
-    function edAlert(usr){
+  
+  
+  
+  function actContacto(usr){
       if(usr.affectedRows==1){
-        $scope.guardado = true;
-         $scope.alertas = TareasResourse.getAlert.all();
+        console.log('Cliente Actualizado: ' ) 
+        console.log('Result:'+ JSON.stringify(usr) ); 
+         $scope.getContacto();
+        //angular.element('#modal').modal('hide');
+         $('#myModal').modal('hide');
       }else{
-        if(usr==undefined){
+        if(usr===undefined){
+          console.log('Result:'+ JSON.stringify(usr) );
           alert("Error de Conexion");
         }else{
+          console.log('Result:'+ JSON.stringify(usr) );
           alert("Error");
         }
       }
-    };
-      $scope.guardarCambios = function() {
-      var ed =   TareasResourse.e.a({
-        idalerta: $scope.alt.idalerta,
-        estado: $scope.selectedEstado.idestado,
-        comentario: $scope.alt.comentario
+    }
+  $scope.actualizarContacto = function(){
+      var usr =   TareasResourse.clienteEditar.Editar({
+        nombre:$scope.contacto.nombre,
+        identificacion:$scope.contacto.identificacion,
+        telefono:$scope.contacto.telefono,
+        email:$scope.contacto.email,
+        direccion:$scope.contacto.direccion,
+        idusuario: idusuario,
+        idcliente: idContacto
       })
-        .$promise.then(function(ed){
-          editA.resolve(ed);
+        .$promise.then(function(usr){
+          conn2.resolve(usr);
         });
-    };
-
-    $scope.alertas = TareasResourse.getAlert.all();
-
-    $scope.showMap = false;
-    $scope.map = { center: { latitude: 18, longitude: -69 }, zoom: 8 };
-    $scope.marker = {
-      id: 0,
-      coords: {
-        latitude: 45,
-        longitude: -73
-      }};
-
-    $scope.actualizar = function(alerta){
-      $scope.showMap = true;
-      $scope.marker.coords.latitude = alerta.latitud;
-      $scope.marker.coords.longitude = alerta.longitud;
-      $scope.map.center.latitude  = alerta.latitud;
-      $scope.map.center.longitude  = alerta.longitud;
-      $scope.map.zoom = 16;
+    }
+  
+  
+   $scope.go = function(contacto) {
+      var idContacto = contacto.idcliente; 
+      $location.path('/factura/'+ idContacto);
     };
 
 
-    /**************************************************************************************
-     * Format Data
-     * ********************************************************************/
- $scope.fDate = function(date){
-  var x = date.substring(0,18);
-
-     var t = x.split(/[- 'T':]/);
-     var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
-
-      var dformat = [
-        d.getDate(),
-        d.getMonth()+1,
-        d.getFullYear()].join('/')+' '+
-              [d.getHours(),
-               d.getMinutes()].join(':');
-               return dformat;
-    };
-
-    /**************************************************************************************
-     * Format Data
-     * ********************************************************************/
-
-
-  })
-
-
-;
+  }); /****Fin Controller ***/

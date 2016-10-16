@@ -1,3 +1,11 @@
+## v0.6.2
+
+ * Changed default buttons class to "md-accent" for Materila template (see [issue #51](https://github.com/nobitagit/ng-material-floating-button/issues/51) ).
+
+## v0.6.1
+
+ * Allow usage with ng-strict-di apps (see [issue #41](https://github.com/nobitagit/ng-material-floating-button/issues/41) ).
+
 ## v0.6.0
 
  * Added directive `mfb-button-close` to share close menu functionality (see [pull request #38](https://github.com/nobitagit/ng-material-floating-button/pull/38) ).

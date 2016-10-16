@@ -9,23 +9,24 @@
  */
 angular.module('appApp')
   .controller('LoginCtrl', function ($scope, $q, TareasResourse, $log, $cookieStore,$window, $location) {
-	 delete $window.sessionStorage.token;
+ delete $window.sessionStorage.token;
     var inicioSesion = $q.defer();
     $scope.errormsj =false;
 
     inicioSesion.promise.then(usrASesion);
     //le propagamos estos valores al controlador padre para poder ocultar elmentos del menu ya que el menu tiene otro controlador
     function usrASesion(usr){
-      if(usr.nombre != 'wrong'){
-        $scope.usrConectado.nombre = usr.nombres;
-        $scope.usrConectado.user = usr.username;
-		  $window.sessionStorage.token = usr.token;
+			//console.log(usr); 
+			 if(usr.nombre != 'wrong'){
+					$scope.usrConectado.nombre = usr.nombre;
+					$scope.usrConectado.user = usr.email;
+					$window.sessionStorage.token = usr.token;
 
-        var adm = false;
-        var clt = false;
+					var adm = false;
+					var clt = false;
 
-        if(usr.idtiposusuario == 0 ){
-          adm = true;
+					if(usr.idtiposusuario === 0 ){
+						adm = true;
         }else{
           clt = true;
         }
@@ -41,13 +42,21 @@ angular.module('appApp')
         $cookieStore.put('user',usr);
         console.log('Result:'+ JSON.stringify(usr) );
         $location.path('/contactos');
-      }else{
+      }else{				
         $scope.errormsj= true;
       }
 
 
-    };
+			
+			
+    }
 
+	
+	$scope.$on('Login-Fail', function(event, args) {
+		$scope.errormsj= true;
+	});
+	
+	
     $scope.iniciarSesion = function(){
       //Enciptamos el passowrd
       //var crypt = md5.createHash($scope.usuario.txtpass);
@@ -59,4 +68,5 @@ angular.module('appApp')
 
     };
   });
+
 

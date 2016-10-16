@@ -9,8 +9,9 @@
 
 
 				<span class="ribbon-button-alignment pull-right">
-          <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-grid"></i> Agregar Contacto</span>
-         </span>
+          <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"  data-toggle="modal" data-target="#myModal"><i class="fa-grid"></i> Agregar Contacto</span>
+         </span>				
+				
 				<!-- end breadcrumb -->
 
 				<!-- You can also add more buttons to the
@@ -32,9 +33,13 @@
       <div class="row">
         <!-- NEW WIDGET START -->
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+					<div class="panel panel-default">
+						<div style="margin-left:10px; margin-right:10px;
+										margin-bottom:10px;	min-height: 200px; ">
           <!-- Widget ID (each widget will need unique ID)-->
-          <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="true">
+							<h5 class="text-primary">Contactos</h5>
+			
+      	    	<div class="jarviswidget jarviswidget-color-blueLight well" id="wid-id-0" data-widget-editbutton="true">
             <!-- widget options:
             usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -45,14 +50,7 @@
             data-widget-fullscreenbutton="false"
             data-widget-custombutton="false"
             data-widget-collapsed="true"
-            data-widget-sortable="false"
-
-            -->
-            <header>
-              <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-              <h2>Contactos </h2>
-
-            </header>
+            data-widget-sortable="false"            -->
 
             <!-- widget div-->
             <div>
@@ -67,25 +65,28 @@
               <!-- widget content -->
               <div class="widget-body no-padding">
 
-                <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-                  <thead>
-                  <tr>
-                    <th data-hide="phone">ID</th>
-                    <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Nombre</th>
-                    <th data-hide="phone"><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i>RNC</th>
-                    <th>E-Mail</th>
-                    <th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i>Telefono</th>
-                    <th data-hide="phone,tablet">Direccion</th>
-                  </tr>
+                <table id="dt_basic" class="table table-responsive  table-hover" width="100%">
+                  <thead class="thead-default" >
+										<tr>
+											<th class="hidden-md hidden-sm hidden-xs">ID</th>
+											<th data-class="expand"><i class="fa fa-fw fa-user text-muted"></i>Nombre</th>
+											<th><i class="fa fa-fw fa-phone text-muted "></i>RNC</th>
+											<th  class=" hidden-sm hidden-xs">E-Mail</th>
+											<th classe="hidden-xs"><i class="fa fa-fw fa-map-marker txt-color-blue"></i>Telefono</th>
+											<th class="hidden-xs">Direccion</th>
+										</tr>
                   </thead>
                   <tbody>
                   <tr ng-repeat="contacto in contactos | orderBy:ordenSeleccionado | filter:buscar" ng-click="go(contacto)">
-                    <td>{{$index + 1}}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{$index + 1}}</td>
                     <td>{{contacto.nombre || 'empty' }}</td>
                     <td>{{contacto.identificacion}}</td>
-                    <td>{{contacto.email}}</td>
+                    <td  class="hidden-sm hidden-xs">{{contacto.email}}</td>
                     <td>{{contacto.telefono}}</td>
-                    <td>{{contacto.direccion}}</td>
+                    <td class="hidden-xs">{{contacto.direccion}}
+										<a class="btn btn-danger   pull-right"  ng-click="EliminarContacto(contacto, $index); $event.stopPropagation();"><i class="fa fa-trash-o"></i></a>    
+                
+										</td>
                   </tr>
 
                   </tbody>
@@ -99,15 +100,58 @@
 
           </div>
           <!-- end widget -->
-
-
-
-
-
-
-        </article>
+						</div>
+					</div>
+					<!-- End panel-->
+				</article>
         <!-- WIDGET END -->
-
       </div>
     </section>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Nuevo Contacto</h4>
+							</div>
+							<div class="modal-body">
+									
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Nombre" ng-model="clienteNombre"   />
+										</div>			
+											<div class="form-group">
+											<input type="text" class="form-control" placeholder="RNC" ng-model="clienteRNC"  />
+										</div>			
+											<div class="form-group">
+											<input type="email" class="form-control" placeholder="E-Mail" ng-model="clienteEmail"  />
+										</div>	
+									</div>
+									
+									<div class="col-md-6">	
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Telefono" ng-model="clienteTelefono"  />
+										</div>			
+											<div class="form-group">
+											<textarea type="text" class="form-control" placeholder="Direccion" style="resize:none; min-height: 79px;" ng-model="clienteDireccion"  />
+												</textarea>
+										</div>
+									</div>
+								</div>		
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">
+									Cancelar
+								</button>
+								<button type="button" class="btn btn-primary" ng-click="AgregarContacto()">
+									Agregar
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
