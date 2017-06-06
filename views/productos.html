@@ -1,0 +1,211 @@
+
+
+<!-- RIBBON -->
+<div ng-controller="ProductosCtrl">
+			<div id="ribbon">
+
+				<span class="ribbon-button-alignment">
+					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+				</span>
+
+
+				<span class="ribbon-button-alignment pull-right">
+          <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"  data-toggle="modal" data-target="#myModal"><i class="fa-grid"></i> Agregar Producto</span>
+         </span>				
+				
+				<!-- end breadcrumb -->
+
+				<!-- You can also add more buttons to the
+				ribbon for further usability
+
+				Example below:
+
+				<span class="ribbon-button-alignment pull-right">
+				<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+				<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+				<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+				</span> -->
+
+			</div>
+			<!-- END RIBBON -->
+
+<div id="content">       
+  <section id="widget-grid" class="">
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+						<div class="panel panel-default">
+						<div style="margin-left:10px; margin-right:10px;
+										margin-bottom:10px;	min-height: 200px; ">
+          <!-- Widget ID (each widget will need unique ID)-->
+							<h5 class="text-primary">Productos</h5>
+					<!-- Widget ID (each widget will need unique ID)-->
+          <div class="jarviswidget jarviswidget-color-blueLight well" id="wid-id-0" data-widget-editbutton="true">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+
+            -->
+            <header>
+              <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+              <h2>Productos </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+              <!-- widget edit box -->
+              <div class="jarviswidget-editbox">
+                <!-- This area used as dropdown edit box -->
+
+              </div>
+              <!-- end widget edit box -->
+
+              <!-- widget content -->
+              <div class="widget-body no-padding ">
+
+                <table id="dt_basic" class="table   table-hover" width="100%">
+                  <thead>
+                  <tr>
+                    <th >No.</th>
+                    <th >Codigo</th>                    
+                    <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Nombre</th>
+                    <th ><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i>Medida</th>
+                    <th ><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i>Precio</th>     
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-click="open(producto)" ng-repeat="producto in productos | orderBy:ordenSeleccionado | filter:buscar">
+                  
+										<td >{{$index + 1}}</td>
+                    <td >{{producto.id_producto || 'empty' }}</td>
+                    <td >{{producto.nombre || 'empty' }}</td>
+                    <td >{{getMedida(producto.id_tipo_medida) || 'empty'}}</td>
+										<td>{{producto.precio}} 
+                        <a class="btn btn-danger   pull-right"  ng-click="EliminarProducto(producto, $index); $event.stopPropagation();"><i class="fa  fa-trash-o"></i></a>    
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+							</div>
+              <!-- end widget content -->
+
+            </div>
+            <!-- end widget div -->
+
+          </div>
+          <!-- end widget -->
+							</div>
+					</div>
+				</article>
+        <!-- WIDGET END -->
+      </div>
+    </section>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+					<div class="modal-dialog" >
+						<div class="modal-content" style="width: 400px">
+							<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Nuevo producto</h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="row">
+									<div class="col-md-12">										
+										<div class="form-group">                 
+											<input type="text" class="form-control" placeholder="Nombre" ng-model="productoNombre"   />
+										</div>			
+											<div class="form-group">
+											<input type="text" class="form-control" placeholder="Costo" ng-model="productoCosto"  />
+										</div>	
+										
+											<div class="form-group">
+											<input type="text" class="form-control" placeholder="Precio" ng-model="productoPrecio"  />
+										</div>
+										<div class="form-group" >
+													<input type="text" ng-model="selectedUnidad" typeahead-min-length="0"
+																 placeholder="Unidad de medida" typeahead-no-results="noResults" 
+																 uib-typeahead="unidad as unidad.unidad for unidad in unidades | filter:$viewValue | limitTo:8" 
+																 class="form-control" ng-keyup="isUnidadEmpy()"  >
+													<button type="button" class="btn btn-default btn-sm" ng-if="noResults" ng-click="AgregarUnidad()" >
+															<i class="fa fa-plus-circle" aria-hidden="true"></i>
+														</button>
+													</div>				
+									</div>
+								</div>							
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">
+									Cancelar
+								</button>
+								<button type="button" class="btn btn-primary" ng-click="AgregarProducto()">
+									Agregar
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+	<div  class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+					<div class="modal-dialog" >
+						<div class="modal-content" style="width: 400px">
+							<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Editar producto</h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="row">
+									<div class="col-md-12">										
+										<div class="form-group">                 
+											<input type="text" class="form-control" placeholder="Nombre" ng-model="productoNombre"   />
+										</div>			
+											<div class="form-group">
+											<input type="text" class="form-control" placeholder="Costo" ng-model="productoCosto"  />
+										</div>	
+										
+											<div class="form-group">
+											<input type="text" class="form-control" placeholder="Precio" ng-model="productoPrecio"  />
+										</div>
+										<div class="form-group" >
+													<input type="text" ng-model="selectedUnidad" typeahead-min-length="0"
+																 placeholder="Unidad de medida" typeahead-no-results="noResults" 
+																 uib-typeahead="unidad as unidad.unidad for unidad in unidades | filter:$viewValue | limitTo:8" 
+																 class="form-control" ng-keyup="isUnidadEmpy()"  >
+													<button type="button" class="btn btn-default btn-sm" ng-if="noResults" ng-click="AgregarUnidad()" >
+															<i class="fa fa-plus-circle" aria-hidden="true"></i>
+														</button>
+													</div>				
+									</div>
+								</div>							
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">
+									Cancelar
+								</button>
+								<button type="button" class="btn btn-primary" ng-click="EditarProducto()">
+									Editar
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+</div>

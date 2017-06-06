@@ -1,240 +1,463 @@
-<!doctype html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, user-scalable-no">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="bower_components/ng-mfb/mfb/dist/mfb.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+<!DOCTYPE html>
+<html lang="en-us"  ng-app="appApp" >	
+  <script src="bower_components/angular/angular.js"></script>
+	<style> .ng-cloak { display: none !important; } </style>
+<head>
+  <meta charset="utf-8">
+  <title> SmartAdmin </title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- #CSS Links -->
+  <!-- Basic Styles -->
+  <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+
+  <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+  <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+
+  <!-- SmartAdmin RTL Support -->
+  <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css">
+	<!-- Angular Material CSS-->
+  <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+		<!-- We recommend you use "your_style.css" to override SmartAdmin
+		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
+        <link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
+
+        <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp
+        <link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">
+ -->
+        <!-- #FAVICONS -->
+        <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+
+        <!-- #GOOGLE FONT 
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+-->
+				<link rel="stylesheet" type="text/css" media="screen" href="css/googlefonts.css">
+
+        <!-- #APP SCREEN / ICONS -->
+		<!-- Specifying a Webpage Icon for Web Clip
+    Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+    <link rel="apple-touch-icon" href="img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
   </head>
-  <body ng-app="appApp">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div ng-controller="navegCtrl" class="container">
+	<!--
 
+	TABLE OF CONTENTS.
 
-      <!--Menu Material-----------------------  -->
-      < layout="row" flex>
+	Use search to find needed section.
 
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"  >
-          <h1 class="md-toolbar-tools">Sidenav Right</h1>
-          </md-toolbar>
-          <md-content ng-controller="RightCtrl" layout-padding>
+	===================================================================
 
+	|  01. #CSS Links                |  all CSS links and file paths  |
+	|  02. #FAVICONS                 |  Favicon links and file paths  |
+	|  03. #GOOGLE FONT              |  Google font link              |
+	|  04. #APP SCREEN / ICONS       |  app icons, screen backdrops   |
+	|  05. #BODY                     |  body tag                      |
+	|  06. #HEADER                   |  header tag                    |
+	|  07. #PROJECTS                 |  project lists                 |
+	|  08. #TOGGLE LAYOUT BUTTONS    |  layout buttons and actions    |
+	|  09. #MOBILE                   |  mobile view dropdown          |
+	|  10. #SEARCH                   |  search field                  |
+	|  11. #NAVIGATION               |  left panel & navigation       |
+	|  12. #MAIN PANEL               |  main panel                    |
+	|  13. #MAIN CONTENT             |  content holder                |
+	|  14. #PAGE FOOTER              |  page footer                   |
+	|  15. #SHORTCUT AREA            |  dropdown shortcuts area       |
+	|  16. #PLUGINS                  |  all scripts and plugins       |
 
+	===================================================================
 
+-->
 
-            <md-button ng-click="close()" class="md-primary">
-              Close Sidenav Right
-            </md-button>
-          </md-content>
-        </md-sidenav>
+<!-- #BODY -->
+	<!-- Possible Classes
 
-        <md-content flex layout-padding>
-          <div layout="column" layout-fill layout-align="top center">
+		* 'smart-style-{SKIN#}'
+		* 'smart-rtl'         - Switch theme mode to RTL
+		* 'menu-on-top'       - Switch to top navigation (no DOM change required)
+		* 'no-menu'			  - Hides the menu completely
+		* 'hidden-menu'       - Hides the main menu but still accessable by hovering over left edge
+		* 'fixed-header'      - Fixes the header
+		* 'fixed-navigation'  - Fixes the main menu
+		* 'fixed-ribbon'      - Fixes breadcrumb
+		* 'fixed-page-footer' - Fixes footer
+		* 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
+	!usrConectado.estaConectado
+-->
+ <div ng-controller="navegCtrl"  ng-class="{'no-menu' :!usrConectado.estaConectado}" class="ng-cloak" >
+	<body class="fixed-header fixed-page-footer" >
+   
+      <!-- #HEADER -->
+      <header id="header">
+        <div id="logo-group">
 
-            <ul class="mfb-component--tl mfb-slidein" data-mfb-hover>
-            <nav mfb-menu  effect="zoomin" label="hover here"
-                 active-icon="ion-edit" resting-icon="ion-plus-round"
-                 toggling-method="click">
-              <p>
-                .
-              </p> <p>
-              .
-            </p>
-              <p>
-                .
-                .
-              </p>
-              <md-button class="md-fab md-primary" aria-label="Use Android" align="right" ng-click="toggleLeft()">
-               <b>+</b>
-              </md-button>
-            </nav>
-          </ul>
-            </div>
+          <!-- PLACE YOUR LOGO HERE -->
+          <span id="logo"> <img src="img/logo.png" alt="SmartAdmin"> </span>
+            
+                    <!-- END AJAX-DROPDOWN -->
+                  </div>
 
+										 <div id="hide-menu" class="btn-header pull-right">
+											<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapsar Menu"><i class="fa fa-reorder"></i></a> </span>
+										</div>
+                    <!-- logout button -->
+                    
+										<div id="logout" class="btn-header transparent pull-right" ng-click="salir()">
+                      <span> <a title="Sign Out" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+                    </div>
+                    <!-- end logout button -->
 
-        </md-content>
-
-
-      </section>
-
-      <!--END menu material -->
-
-
-
-
-
-
-      <div class="header">
-        <div class="navbar navbar-default navbar-fixed-top"  role="navigation">
-
-          <div class="container">
-            <div class="navbar-header ">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-
-              </button>
-              <img src="0.png" alt="Mountain View" style="width:100px;height:80px">
+                   
 
 
-            </div>
+              </header>
+              <!-- END HEADER -->
 
+              <!-- #NAVIGATION -->
+              <!-- Left panel : Navigation area -->
+              <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+              <aside id="left-panel" >
 
-          <div  class="collapse navbar-collapse" id="js-navbar-collapse"><ul style="list-style-type: none">
-            <li></li>
-          </ul>
-            <div class="container"><ul style="list-style-type: none">
-              <li></li>
-            </ul>
+                <!-- User info -->
+                <div class="login-info">
+                  <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
+										
+													 <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                      <!-- <img src="img/avatars/sunny.png" alt="me" class="online" />-->
+											
+                      <span>
+												<i class="fa fa-lg fa-fw fa-cogs online"></i>
+                        {{usrConectado.user}}
+                      </span>
+                     
+                    </a>
+										
+                   
 
-              <ul class="nav nav-pills pull-right">
+                  </span>
+                </div>
+                <!-- end user info -->
 
-                <li  ng-show="usrConectado.cliente"  class="dropdown">
-
-                  <a href="#vehiculos" class="dropdown-toggle">Vehiculos <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#vehiculos">Ver Vehiculos</a></li>
-                    <li><a href="#addVehiculo">Agregar Vehiculos</a></li>
+                <!-- NAVIGATION : This navigation is also responsive-->
+                <nav>
+                  <ul>
+                   <!--Menu Inicio -->
+										<li ng-class="{'active' :menu.Inicio}" ng-click="cambiarMenu('/')" >
+                      <a href="" title="Inicio"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Inicio</span></a>
+                    </li>
+										<!--Menu Contactos -->
+										<li ng-class="{'active' :menu.contactos || menu.contacto }" ng-click="cambiarMenu('/contactos')" >
+                      <a href="" title="Contactos"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Contactos</span></a>
+                    </li>
+										<!--Menu Productos -->
+										<li ng-class="{'active' :menu.productos }" ng-click="cambiarMenu('/productos')" >
+                      <a href="" title="Productos"><i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">Productos</span></a>
+                    </li>
+										<li ng-class="{'active' :menu.facturas }" ng-click="cambiarMenu('/facturas')" >
+                      <a href="" title="Facturas"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Facturas</span></a>
+                    </li>
+										
+										
+										
+										
+										
+									</ul>
+									<ul>
+										 
                   </ul>
-                </li>
+                      
 
-                <li >
-                  <a ng-href="#/login" ng-show="!usrConectado.estaConectado">Entrar</a>
-                </li>
-                <li >
-                  <a ng-href="#/alta" ng-show="!usrConectado.estaConectado">Registrarse</a>
-                </li>
-                <li ng-show="usrConectado.admin" role="presentation" ><a href="#alertas">Alertas </a>
-                </li>
+       
+      </nav>
+      <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+      </span>
 
-                <li class="dropdown" ng-show="usrConectado.admin">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuarios<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#pendientes">Pendientes</a>
-                    </li>
-                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#declinados">Declinados</a>
-                    </li>
-                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#registrados">Registrados</a>
-                    </li>
-                    <li ng-show="usrConectado.admin" role="presentation" ><a href="#registrar">Nuevo</a>
-                    </li>
-                  </ul>
-                </li>
+    </aside>
+    <!-- END NAVIGATION -->
 
-                <li ng-show="usrConectado.admin" role="presentation" ><a href="#Estados">Estado</a>
-                </li>
-                <li ng-show="usrConectado.admin" role="presentation" ><a href="#membresias">Membresias</a>
-                </li>
-                <li ng-show="usrConectado.cliente" role="presentation" ><a href="#perfil">Mi Perfil </a>
-                </li>
-                <li ng-show="  usrConectado.estaConectado">
-                  <button class="btn btn-danger"ng-click="salir()"><i class="fa fa-sign-out"></i></button>
-                </li>
-              </ul>
-            </div>
+    <!-- MAIN PANEL -->
+    <div id="main" role="main">
+
+			
+			
+            <!-- MAIN CONTENT -->   
+
+            <div ng-view="">        
 
           </div>
-
-
+          <!-- END MAIN CONTENT -->
 
         </div>
+        <!-- END MAIN PANEL -->
+
+        <!-- PAGE FOOTER 
+        <div class="page-footer">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <span class="txt-color-white">InvoiceAdmin 0.1 <span class="hidden-xs"> - Invoice Web Application</span> © {{year}}</span>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 text-right hidden-xs">
+              <div class="txt-color-white inline-block">
+                <i class="txt-color-blueLight hidden-mobile"> Configuracion &nbsp; </i>
+                <div class="btn-group dropup">
+                  <button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
+                    <i class="fa fa-link"></i> <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu pull-right text-left">          
+                    <li class="divider"></li>
+                    <li>
+                      <div class="padding-5">
+													<a href="#/unidades" class="btn btn-block btn-default">Unidades</a>
+                      </div>
+                    </li>
+										 <li class="divider"></li>
+										 <li>
+                      <div class="padding-5">
+                        <button class="btn btn-block btn-default">General</button>
+                      </div>
+                    </li>
+										 <li class="divider"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END PAGE FOOTER -->
+
+        <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+        Note: These tiles are completely responsive,
+        you can add as many as you like
+      -->
+      <div id="shortcut">
+        <ul>
+          <li>
+            <a href="inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-balance-scale fa-4x"></i> <span>Medidas <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+          </li>
+          <li>
+            <a href="calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+          </li>
+          <li>
+            <a href="gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+          </li>
+          <li>
+            <a href="invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
+          </li>
+          <li>
+            <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+          </li>
+          <li>
+            <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+          </li>
+        </ul>
       </div>
-    </div>
+      <!-- END SHORTCUT AREA -->
 
+      <!--================================================== -->
 
-    <div class="container">
-    <div ng-view="">
+      <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+      <script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
 
-    </div>
-    </div>
+      <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+      <script src="js/libs/jquery-2.1.1.min.js"></script>
+      <script>
+        if (!window.jQuery) {
+          document.write('<script src="/js/libs/jquery-2.1.1.min.js"><\/script>');
+        }
+      </script>
 
+      <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
+      <script>
+        if (!window.jQuery.ui) {
+          document.write('<script src="../../../HTML_version/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        }
+      </script>
 
+      <!-- IMPORTANT: APP CONFIG -->
+      <script src="js/app.config.js"></script>
 
+      <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+      <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
 
-    <div class="footer">
-      <div class="container">
+      <!-- BOOTSTRAP JS -->
+      <script src="js/bootstrap/bootstrap.min.js"></script>
 
-        <p><span class="glyphicon glyphicon-envelope"></span> </p>
-      </div>
-    </div>
-    </div>
+      <!-- CUSTOM NOTIFICATION -->
+      <script src="js/notification/SmartNotification.min.js"></script>
 
+      <!-- JARVIS WIDGETS -->
+      <script src="js/smartwidgets/jarvis.widget.min.js"></script>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      <!-- EASY PIE CHARTS -->
+      <script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+      <!-- SPARKLINES -->
+      <script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.js"></script>
-    <script src="/bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-md5/angular-md5.js"></script>
-    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-    <script src='bower_components/lodash/dist/lodash.compat.min.js'></script>
-    <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
-    <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="bower_components/ng-mfb/src/mfb-directive.js"></script>
-    <script src="bower_components/ng-mfb/mfb/dist/mfb.js"></script>
+      <!-- JQUERY VALIDATE -->
+      <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/crud.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/nav.js"></script>
-        <script src="scripts/controllers/alertas.js"></script>
-        <script src="scripts/controllers/alta.js"></script>
-        <script src="scripts/controllers/alta2.js"></script>
-        <script src="scripts/controllers/registrado.js"></script>
-        <script src="scripts/controllers/editarusuario.js"></script>
-        <script src="scripts/controllers/vehiculos.js"></script>
-        <script src="scripts/controllers/tipoalerta.js"></script>
-        <script src="scripts/controllers/addVehiculo.js"></script>
-        <script src="scripts/controllers/OtherController.js"></script>
-        <script src="scripts/controllers/pendientes.js"></script>
-        <script src="scripts/controllers/declinados.js"></script>
-        <script src="scripts/controllers/registrados.js"></script>
-        <script src="scripts/controllers/EditRow.js"></script>
-        <script src="scripts/controllers/membresias.js"></script>
-        <script src="scripts/controllers/xml.js"></script>
-        <script src="scripts/controllers/contactos.js"></script>
+      <!-- JQUERY MASKED INPUT -->
+      <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
+      <!-- JQUERY SELECT2 INPUT -->
+      <script src="js/plugin/select2/select2.min.js"></script>
 
-        <!-- endbuild -->
-</body>
-</html>
+      <!-- JQUERY UI + Bootstrap Slider -->
+      <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+      <!-- browser msie issue fix -->
+      <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+      <!-- FastClick: For mobile devices -->
+      <script src="js/plugin/fastclick/fastclick.min.js"></script>
+
+        <!--[if IE 8]>
+
+        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+        <![endif]-->
+
+       
+
+        <!-- MAIN APP JS FILE -->
+        <script src="js/app.min.js"></script>
+
+        <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
+        <!-- Voice command : plugin -->
+        <script src="js/speech/voicecommand.min.js"></script>
+
+        <!-- SmartChat UI : plugin -->
+        <script src="js/smart-chat-ui/smart.chat.ui.min.js"></script>
+        <script src="js/smart-chat-ui/smart.chat.manager.min.js"></script>
+
+        <!-- PAGE RELATED PLUGIN(S)
+        <script src="..."></script>-->
+
+        <script type="text/javascript">
+
+          $(document).ready(function() {
+
+            /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+             *
+             * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+             *
+             * // activate tooltips
+             * $("[rel=tooltip]").tooltip();
+             *
+             * // activate popovers
+             * $("[rel=popover]").popover();
+             *
+             * // activate popovers with hover states
+             * $("[rel=popover-hover]").popover({ trigger: "hover" });
+             *
+             * // activate inline charts
+             * runAllCharts();
+             *
+             * // setup widgets
+             * setup_widgets_desktop();
+             *
+             * // run form elements
+             * runAllForms();
+             *
+             ********************************
+             *
+             * pageSetUp() is needed whenever you load a page.
+             * It initializes and checks for all basic elements of the page
+             * and makes rendering easier.
+             *
+             */
+
+             pageSetUp();
+
+            /*
+             * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+             * eg alert("my home function");
+             *
+             * var pagefunction = function() {
+             *   ...
+             * }
+             * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+             *
+             * TO LOAD A SCRIPT:
+             * var pagefunction = function (){
+             *  loadScript(".../plugin.js", run_after_loaded);
+             * }
+             *
+             * OR
+             *
+             * loadScript(".../plugin.js", run_after_loaded);
+             */
+
+           })
+
+         </script>
+       </div>
+       <script src="bower_components/angular-aria/angular-aria.js"></script>
+       <script src="bower_components/angular-animate/angular-animate.js"></script>
+       <script src="bower_components/angular-material/angular-material.js"></script>
+      <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+       <script src="bower_components/angular-resource/angular-resource.js"></script>
+       <script src="bower_components/angular-route/angular-route.js"></script>
+       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <!-- <script src="bower_components/angular-touch/angular-touch.js"></script>-->
+       <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+       <script src="bower_components/angular-md5/angular-md5.js"></script>
+      <!--<script src='bower_components/lodash/dist/lodash.compat.min.js'></script>-->
+       <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+       <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
+       <script src="bower_components/ng-mfb/src/mfb-directive.js"></script>
+       <script src="bower_components/ng-mfb/mfb/dist/mfb.js"></script>
+
+       <!-- build:js({.tmp,app}) scripts/scripts.js -->
+       <script src="scripts/app.js"></script>
+       <script src="scripts/controllers/main.js"></script>
+       <script src="scripts/controllers/about.js"></script>
+       <script src="scripts/services/crud.js"></script>
+       <script src="scripts/controllers/login.js"></script>
+       <script src="scripts/controllers/login2.js"></script>
+       <script src="scripts/controllers/nav.js"></script>
+       <script src="scripts/controllers/editarContacto.js"></script>
+       <script src="scripts/controllers/alta.js"></script>
+       <script src="scripts/controllers/alta2.js"></script>
+       <script src="scripts/controllers/registrado.js"></script>
+       <script src="scripts/controllers/editarusuario.js"></script>
+       <script src="scripts/controllers/OtherController.js"></script>
+       <script src="scripts/controllers/pendientes.js"></script>
+       <script src="scripts/controllers/declinados.js"></script>
+       <script src="scripts/controllers/registrados.js"></script>
+       <script src="scripts/controllers/EditRow.js"></script>
+       <script src="scripts/controllers/membresias.js"></script>
+       <script src="scripts/controllers/contactos.js"></script>
+       <script src="scripts/controllers/productos.js"></script>
+       <script src="scripts/controllers/unidades.js"></script>
+       <script src="scripts/controllers/facturas.js"></script>
+       <script src="scripts/controllers/factura.js"></script>
+     </body>
+	</div>
+     </html>

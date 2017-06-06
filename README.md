@@ -8,3 +8,7 @@ AngularJS, SmartAdmin
 
 -Host 45.55.242.157
 -Port: 8080
+
+Api = http://45.55.242.157:8080/ 
+
+WebProjectF = http://45.55.242.157/WebProjectF/blank_.html#/login2
