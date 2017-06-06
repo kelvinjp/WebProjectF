@@ -224,6 +224,9 @@ angular.module('appApp')
                 }        
         });
     }
+   
+   
+   //Abrimos un producto para editarlo.
     $scope.open = function (producto) {
     $scope.productoNombre = producto.nombre;
     $scope.productoPrecio = producto.precio;
@@ -250,7 +253,7 @@ angular.module('appApp')
                 break; 
               }                              // tempVar = one,two,
           }      
-      $scope.productoIdMedida = $scope.selectedUnidad.idunidad; 
+  $scope.productoIdMedida = $scope.selectedUnidad.idunidad; 
       var usr =   TareasResourse.productoEditar.EditarProducto({
         nombre: $scope.productoNombre,
         costo: $scope.productoCosto,
